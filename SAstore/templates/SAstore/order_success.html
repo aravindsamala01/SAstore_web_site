@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Thank you for your order!</h2>
+<p><strong>Order ID:</strong> {{ order.id }}</p>
+<p><strong>Name:</strong> {{ order.full_name }}</p>
+<p><strong>Email:</strong> {{ order.email_address }}</p>
+<p><strong>Address:</strong> {{ order.address }}</p>
+<p><strong>Order placed on:</strong> {{ order.created_at|date:"F d, Y, g a" }}</p>
+<a href="{% url 'home' %}">Return to Home</a>
+{% endblock %}

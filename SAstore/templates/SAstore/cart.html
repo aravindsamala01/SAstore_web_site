@@ -1,0 +1,64 @@
+<!-- templates/SAstore/cart.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Shopping Cart</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+          crossorigin="anonymous">
+</head>
+<body>
+
+<div class="container mt-4">
+    <!-- Top-right Home Button -->
+    <div class="d-flex justify-content-end mb-3">
+        <a href="{% url 'home' %}" class="btn btn-outline-primary">🏠 Home</a>
+    </div>
+
+    <h1 class="mb-4">Your Shopping Cart</h1>
+
+    {% if cart_items %}
+        <ul class="list-group">
+            {% for item in cart_items %}
+                <li class="list-group-item d-flex align-items-center justify-content-between">
+                    <div class="d-flex align-items-center">
+                        <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}"
+                             class="me-3" style="width: 80px; height: auto; border-radius: 8px;">
+                        <div>
+                            <h5>{{ item.product.name }}</h5>
+                            <p class="mb-1">₹{{ item.product.price }}</p>
+                            <form action="{% url 'update_cart' item.product.id %}" method="post" class="d-inline">
+                                {% csrf_token %}
+                                <input type="number" name="quantity" value="{{ item.quantity }}" min="1"
+                                       style="width: 60px;" class="form-control d-inline-block">
+                                <button class="btn btn-sm btn-outline-primary ms-2" type="submit">Update</button>
+                            </form>
+                            <form action="{% url 'remove_from_cart' item.product.id %}" method="post"
+                                  class="d-inline">
+                                {% csrf_token %}
+                                <button class="btn btn-sm btn-outline-danger ms-2" type="submit">Remove</button>
+                            </form>
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <h3 class="mt-4">Total: ₹{{ total_price }}</h3>
+
+        <form method="post" action="{% url 'checkout' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary mt-3">Proceed to Checkout</button>
+        </form>
+    {% else %}
+        <p>Your cart is empty.</p>
+    {% endif %}
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+</body>
+</html>

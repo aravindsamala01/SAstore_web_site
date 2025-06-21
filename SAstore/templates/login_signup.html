@@ -1,0 +1,63 @@
+<!-- templates/login_signup.html -->
+
+{% load static %}
+
+
+<head>
+  <style>
+    .form-structor::after {
+      content: '';
+      opacity: 0.8;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background-repeat: no-repeat;
+      background-position: left bottom;
+      background-size: 500px;
+      background-image: url("{% static 'images/sign_bg.jpeg' %}");
+    }
+  </style>
+</head>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login/Signup</title>
+    <link rel="stylesheet" href="{% static 'css/auth_style.css' %}">
+</head>
+<body>
+<div class="form-structor">
+    <div class="signup {% if signup_active %}{% else %}slide-up{% endif %}">
+        <h2 class="form-title" id="signup"><span>or</span>Sign up</h2>
+        <form method="post" action="{% url 'signup' %}">
+            {% csrf_token %}
+            <div class="form-holder">
+                {{ signup_form.username }}
+                {{ signup_form.email }}
+                {{ signup_form.password1 }}
+                {{ signup_form.password2 }}
+            </div>
+            <button type="submit" class="submit-btn">Sign up</button>
+        </form>
+    </div>
+    <div class="login {% if login_active %}{% else %}slide-up{% endif %}">
+        <div class="center">
+            <h2 class="form-title" id="login"><span>or</span>Log in</h2>
+            <form method="post" action="{% url 'login' %}">
+                {% csrf_token %}
+                <div class="form-holder">
+                    {{ login_form.username }}
+                    {{ login_form.password }}
+                </div>
+                <button type="submit" class="submit-btn">Log in</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'js/auth_script.js' %}"></script>
+</body>
+</html>

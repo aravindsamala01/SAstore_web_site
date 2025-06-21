@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Admin Dashboard</h2>
+
+<h3>Add New Product</h3>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Add Product</button>
+</form>
+
+<hr>
+
+<h3>Products</h3>
+<ul>
+    {% for product in products %}
+    <li>{{ product.name }} - ₹{{ product.price }}</li>
+    {% endfor %}
+</ul>
+
+<h3>Orders</h3>
+<ul>
+    {% for order in orders %}
+    <li>{{ order.product.name }} - {{ order.quantity }} pcs - {{ order.created_at }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}

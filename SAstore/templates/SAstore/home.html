@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+  html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+  }
+
+  body {
+      color: white;
+      background: url("{% static 'images/bg2.jpg' %}") no-repeat center center;
+      background-size: cover;
+      background-attachment: scroll;
+      position: relative;
+      transition: background-position 0.1s ease;
+  }
+
+  body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      z-index: -1;
+  }
+
+  .parallax-container {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding-top: 60px;
+      padding-left: 20px;
+      padding-right: 20px;
+  }
+
+  .hero-content .features {
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+      flex-wrap: wrap;
+      margin: 30px 0;
+  }
+
+  .feature-item {
+      max-width: 200px;
+      text-align: center;
+  }
+
+  .feature-item i {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+  }
+
+  .shop-now-btn {
+      margin-top: 30px;
+  }
+
+  @media (max-width: 768px) {
+      .hero-content .features {
+          flex-direction: column;
+          align-items: center;
+      }
+  }
+</style>
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<div class="parallax-container">
+  <div class="hero-content container">
+    <h1 class="display-4 fw-bold">Welcome to Samala E-Commerce</h1>
+    <p class="lead mb-4">Discover amazing products at unbeatable prices!</p>
+
+    <div class="features">
+      <div class="feature-item">
+        <i class="fas fa-shipping-fast text-success"></i>
+        <h5>Fast Delivery</h5>
+        <p>Get your orders quickly and reliably.</p>
+      </div>
+      <div class="feature-item">
+        <i class="fas fa-rupee-sign text-warning"></i>
+        <h5>Best Prices</h5>
+        <p>We offer competitive pricing on all products.</p>
+      </div>
+      <div class="feature-item">
+        <i class="fas fa-lock text-danger"></i>
+        <h5>Secure Payment</h5>
+        <p>Your payments are encrypted and safe with us.</p>
+      </div>
+    </div>
+
+    <a href="{% url 'all_products' %}" class="btn btn-primary btn-lg shop-now-btn">Shop Now</a>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('mousemove', function (e) {
+      const x = (e.clientX / window.innerWidth) * 100;
+      const y = (e.clientY / window.innerHeight) * 100;
+      document.body.style.backgroundPosition = `${x}% ${y}%`;
+  });
+</script>
+{% endblock %}

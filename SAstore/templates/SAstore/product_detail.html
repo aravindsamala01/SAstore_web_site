@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{{ product.name }}</title>
+    <style>
+        body {
+            font-family: Arial;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            border: 1px solid #ccc;
+            padding: 20px;
+        }
+
+        img {
+            width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .price {
+            font-size: 20px;
+            color: green;
+            font-weight: bold;
+        }
+
+        a {
+            text-decoration: none;
+            color: blue;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        {% if product.image %}
+        <img src="{{ product.image.url}}" alt="{{ product.name }}">
+        {% endif %}
+        <h1>{{ Blue Top }}</h1>
+        <p class="price">₹ {{ 599 }}</p>
+        <p>{{ Blue Cotton Dress, Flared Dress from AW21, contains Dress, Mask, Dress,}}</p>
+        <p>Stock: {{ In stock }}</p>
+        <a href="{% url 'all_products' %}">← Back to Products</a>
+    </div>
+    <form action="{% url 'add_to_cart' product.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Add to Cart</button>
+    </form>
+</body>
+
+</html>

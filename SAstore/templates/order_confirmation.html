@@ -1,0 +1,15 @@
+<!-- templates/order_confirmation.html -->
+
+
+{% extends 'base.html' %}
+{% block content %}
+<h2>Thank you for your order!</h2>
+<p>Your order ID is {{ order.id }}.</p>
+<p><strong>Name:</strong> {{ order.full_name }}</p>
+<p><strong>Email:</strong> {{ order.email }}</p>
+<p><strong>Address:</strong> {{ order.address }}</p>
+<p><strong>Order placed on:</strong> {{ order.created_at|date:"F j, Y, g a" }}</p>
+<p>Total Amount: ₹{{ order.total_price }}</p>
+<p>We’ll deliver your order to: {{ order.address }}, {{ order.city }}</p>
+<a href="{% url 'home' %}">Return to Home</a>
+{% endblock %}
